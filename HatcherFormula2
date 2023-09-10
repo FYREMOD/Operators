@@ -1,0 +1,65 @@
+using UnityEngine;
+
+public class Projectile : MonoBehaviour
+{
+    public float bulletMassInGrains = 150.0f; // Mass of the bullet in grains.
+    public float bulletVelocityInFps = 3500.0f; // Initial velocity of the bullet in fps.
+    public float maxDistance = 1000.0f; // Maximum raycast distance.
+    public float velocityDropDistance = 200.0f; // Distance for exponential velocity drop.
+
+    private void Update()
+    {
+        // Cast a ray from the player's position in the desired direction.
+        Vector3 playerPosition = transform.position;
+        Vector3 rayDirection = transform.forward;
+        float remainingDistance = maxDistance;
+        RaycastHit hit;
+
+        while (remainingDistance > 0f)
+        {
+            if (Physics.Raycast(playerPosition, rayDirection, out hit, remainingDistance))
+            {
+                // Check the hit object's properties (e.g., layer or tag) to determine if it's penetrable.
+                if (hit.collider.CompareTag("Penetrable"))
+                {
+                    // Calculate the distance traveled up to this hit.
+                    float distanceTraveled = maxDistance - remainingDistance;
+
+                    // Apply exponential velocity drop for every 200 meters.
+                    int numExponentialDrops = (int)(distanceTraveled / velocityDropDistance);
+                    float exponentialVelocityDrop = Mathf.Pow(0.9f, numExponentialDrops);
+
+                    // Reduce velocity based on Hatcher's Formula and exponential drop.
+                    float stoppingPower = (bulletMassInGrains * bulletVelocityInFps) / 7000.0f;
+                    float velocityDrop = stoppingPower / distanceTraveled;
+                    bulletVelocityInFps -= velocityDrop * exponentialVelocityDrop;
+
+                    // Update remaining distance and continue raycast through the penetrable object.
+                    remainingDistance = maxDistance - distanceTraveled;
+                    playerPosition = hit.point + rayDirection * 0.01f; // Offset slightly to prevent self-intersection.
+                }
+                else if (hit.collider.CompareTag("NPC") || hit.collider.CompareTag("Player"))
+                {
+                    // Handle hits on NPCs or players.
+                    // You may apply damage or other effects here.
+                    break; // Stop the raycast upon hitting an NPC or player.
+                }
+            }
+            else
+            {
+                // No hit, exit the loop.
+                break;
+
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+/*sophisticated approach */
