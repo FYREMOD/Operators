@@ -1,0 +1,66 @@
+using UnityEngine;
+
+public class RaycastAngleDetection : MonoBehaviour
+{
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 referenceVector = Vector3.left || Vector3.up || Vector3.Right; // Change this to the desired reference vector.
+
+            let origin = ray.origin;
+            // Calculate the angle between the ray's direction and the reference vector.
+            float angle = Vector3.Angle(origin, ray.direction, referenceVector);
+
+            if (angle <= 60.0f)
+            {
+                // Add your ricochet and damage logic here.
+                ApplyDamageToSurface(gameObject);
+            }
+        }
+    }
+
+    private void ApplyDamageToSurface(GameObject surface)
+    {
+        // Assuming you have Calibre, Rigidbody, Collider, and BulletTypes components on the surface.
+        float calibre = surface.GetComponent<Calibre>().calibre;
+        Rigidbody rigidbody = surface.GetComponent<Rigidbody>();
+        Collider collider = surface.GetComponent<Collider>();
+        BulletTypes[] bulletTypes = surface.GetComponents<BulletTypes>();
+
+        foreach (BulletTypes bulletType in bulletTypes)
+        {
+            string _typeofsurface = surface.tag; // Assuming surface has a tag indicating its type.
+            string _typeofbullet = bulletType.tag; // Assuming BulletTypes has a tag indicating its bullet type.
+
+            if (_typeofbullet == "BulletTypes" && _typeofsurface == "Surface")
+            {
+                // Add your ricochet and damage logic here.
+                float mass = rigidbody.mass;
+                float velocity = bulletType.velocity; // Assuming BulletTypes has a velocity field.
+                float _damage = bulletType.damage; // Assuming BulletTypes has a damage field.
+
+                // Define your ammoType and _damage calculation here.
+
+                // Calculate the damage to the surface.
+                float surfaceDamage = bulletDamage / 2.0f;
+
+                // Check if the bullet should bounce based on _typeofsurface.
+                bool WillSpall = _typeofsurface == "water" || _typeofsurface == "metal" || _typeofsurface == "floor";
+
+                if (WillSpall)
+                {
+                    // Calculate damage to the bounced bullet.
+                    float bulletDamage = (velocity / (mass * calibre)) * 100 / _damage;
+
+                    // Apply damage to the bullet.
+                    // You can implement your own logic here for handling the bounced bullet.
+                }
+
+                // Apply damage to the surface.
+                // You can implement your own logic here for handling surface damage.
+            }
+        }
+    }
+}
