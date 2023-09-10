@@ -187,9 +187,18 @@ public class RicochetBullet : MonoBehaviour
     {
         // Apply damage to the NPC.
         Debug.Log("Bullet hit NPC and applied damage.");
-        npc.GetComponent<Health>(state.mortal[]).TakeDamage(bulletDamage * -i * 1);
+        npc.GetComponent<Health>(state.mortal[]).TakeDamage(bulletDamage * -i * 1); 
+/*
+state.mortal will be a tuple of 5 different states including:
+fighter_capable
+Wounded
+severly Wounded or Paralyzed
+Unconscious/Neutralized
+Deceased
+*/
     }
 }
+
 
 public class RaycastAngleDetection : MonoBehaviour
 {
@@ -201,21 +210,21 @@ public class RaycastAngleDetection : MonoBehaviour
 
             Vector3 referenceVector = (Vector3.up, Vector3.left, Vector3.down, Vector3.right);
 
-            // Calculate the angle between the ray's direction and the reference vector.
+            // Calculate the ray's direction and the reference vector.
             float angle = Vector3.Angle(ray.direction, referenceVector);
 
             if (angle <= 60.0f)
             {
-                // Execute your function here.
+                // Execute
                 Ricochet.Function call = (function_default)
             }
         }
     }
 
     // Define your function to be executed when the angle condition is met.
-    private void YourFunction()
+    private void rndFunction()
     {
-        // Place your code here.
+        // finish code here.
         Debug.Log("Angle is 60 degrees or lower. Executing YourFunction.");
     }
 }
