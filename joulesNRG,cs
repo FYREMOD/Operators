@@ -15,7 +15,7 @@ public class RaycastAngleDetection : MonoBehaviour
 
             if (angle <= 60.0f)
             {
-                // Add your ricochet and damage logic here.
+                //finish
                 ApplyDamageToSurface(gameObject);
             }
         }
@@ -41,7 +41,7 @@ public class RaycastAngleDetection : MonoBehaviour
                 float velocity = bulletType.velocity; // Assuming BulletTypes has a velocity field.
                 float _damage = bulletType.damage; // Assuming BulletTypes has a damage field.
 
-                // Define your ammoType and _damage calculation here.
+                // Define ammoType and _damage
 
                 // Calculate the damage to the surface.
                 float surfaceDamage = bulletDamage / 2.0f;
@@ -55,7 +55,7 @@ public class RaycastAngleDetection : MonoBehaviour
                     float bulletDamage = (velocity / (mass * calibre)) * 100 / _damage;
 
                     // Apply damage to the bullet.
-                    // You can implement your own logic here for handling the bounced bullet.
+
                 }
 
                 // Apply damage to the surface.
