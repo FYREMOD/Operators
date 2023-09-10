@@ -297,7 +297,7 @@ public class RicochetBullet : MonoBehaviour
 			public enum _damage = ApplyDamageToSurface.GameObject (surface <number = float.maxValue = 1.0f, _damage = int(float), float.minValue = 0.1f, _damage == (float.minValue - float.maxValue));
 			public enum _Calibre = int(int<float?>);
 			public enum _ammoType = string(value);
-			// You can implement your own damage logic here.
+			// finish
 			Debug.Log("Bullet hit surface and applied damage.");
 			let Surface[array].GetComponent while (<Surface, _angle>(int, _angle, _velocity, _ammoType, _Calibre).TakeDamage(bulletDamage / 2.0f)) do {
 				GameObject_<player, npc, obj>.Character(npc.Char, self.Char, playerChar) takedamage(_velocity / _Calibre + _ammoType * 100 / _damage == new enum _damage(value)) let (_damage bulletDamage = _takedamage * _Calibre / _ammoType);
